@@ -1,7 +1,7 @@
 {
-  "name": "antonis",
-  "author": "MakeAwesomeHappen",
-  "version": "1.0.0",
+  "name": "Antonis",
+  "author": "David Gianforte",
+  "version": "0.1.0",
   "keywords": ["pebble-app"],
   "private": true,
   "dependencies": {},
@@ -11,18 +11,18 @@
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [
-      "aplite",
-      "basalt",
-      "chalk"
+      "basalt"
     ],
     "watchapp": {
-      "watchface": false
+      "watchface": true
     },
     "messageKeys": [
       "dummy"
     ],
     "resources": {
-      "media": []
+      "media": [
+        {"type": "png", "name": "BG_BASALT", "targetPlatforms": ["basalt"], "file": "pebble144_168.png"}
+      ]
     }
   }
 }
