@@ -1,12 +1,12 @@
 {
-  "name": "Antonis",
+  "name": "Victor's Watch",
   "author": "David Gianforte",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "keywords": ["pebble-app"],
   "private": true,
   "dependencies": {},
   "pebble": {
-    "displayName": "antonis",
+    "displayName": "Victor's Watch",
     "uuid": "090984c3-1601-4e63-a900-6e32b2a57d2d",
     "sdkVersion": "3",
     "enableMultiJS": true,
