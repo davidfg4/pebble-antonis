@@ -11,7 +11,8 @@
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [
-      "basalt"
+      "basalt",
+      "chalk"
     ],
     "watchapp": {
       "watchface": true
@@ -21,7 +22,8 @@
     ],
     "resources": {
       "media": [
-        {"type": "png", "name": "BG_BASALT", "targetPlatforms": ["basalt"], "file": "pebble144_168.png"}
+        {"type": "png", "name": "BG", "targetPlatforms": ["basalt"], "file": "pebble144_168.png"},
+        {"type": "png", "name": "BG", "targetPlatforms": ["chalk"], "file": "pebble180.png"}
       ]
     }
   }

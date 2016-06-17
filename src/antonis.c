@@ -17,10 +17,20 @@ static void draw_drawing(Layer *layer, GContext *ctx) {
   GPoint center = grect_center_point(&bounds);
   GPoint left_center = GPoint(bounds.size.w/4, bounds.size.h/2);;
   GPoint right_center = GPoint(bounds.size.w*3/4, bounds.size.h/2);;
-  const int16_t second_hand_length = bounds.size.w / 2 - 5;
+#ifdef PBL_RECT
+  const int16_t outer_radius = 27;
+#else
+  const int16_t outer_radius = 32;
+#endif
+  const int16_t inner_radius = outer_radius - 6;
+  const int16_t second_hand_length = bounds.size.w / 2 - 7;
   const int16_t second_hand_head_length = bounds.size.w / 2 / 3;
   const int16_t second_tail_length = bounds.size.w / 2 / 3;
+#ifdef PBL_RECT
   const int16_t minute_hand_length = 14;
+#else
+  const int16_t minute_hand_length = 18;
+#endif
 
   int32_t second_angle = TRIG_MAX_ANGLE * t->tm_sec / 60;
   int32_t minute_angle = TRIG_MAX_ANGLE * t->tm_min / 60;
@@ -50,19 +60,15 @@ static void draw_drawing(Layer *layer, GContext *ctx) {
   graphics_context_set_stroke_color(ctx, GColorLightGray);
   graphics_context_set_fill_color(ctx, GColorBlack);
   graphics_context_set_stroke_width(ctx, 3);
-  graphics_fill_rect(ctx, GRect(9,57,54,54), 6, GCornersAll);
-  graphics_draw_round_rect(ctx, GRect(9,57,54,54), 6);
-  //graphics_context_set_fill_color(ctx, GColorDarkGray);
-  //graphics_fill_circle(ctx, left_center, 21);
-  graphics_draw_circle(ctx, left_center, 21);
+  graphics_fill_rect(ctx, GRect(left_center.x - outer_radius, left_center.y - outer_radius,outer_radius*2,outer_radius*2), 6, GCornersAll);
+  graphics_draw_round_rect(ctx, GRect(left_center.x - outer_radius, left_center.y - outer_radius,outer_radius*2,outer_radius*2), 6);
+  graphics_draw_circle(ctx, left_center, inner_radius);
 
   // Draw right circle
   graphics_context_set_fill_color(ctx, GColorBlack);
-  graphics_fill_circle(ctx, right_center, 27);
-  graphics_draw_circle(ctx, right_center, 27);
-  //graphics_context_set_fill_color(ctx, GColorDarkGray);
-  //graphics_fill_circle(ctx, right_center, 21);
-  graphics_draw_circle(ctx, right_center, 21);
+  graphics_fill_circle(ctx, right_center, outer_radius);
+  graphics_draw_circle(ctx, right_center, outer_radius);
+  graphics_draw_circle(ctx, right_center, inner_radius);
 
   // Draw hour and minute hands
   graphics_draw_line(ctx, GPoint(left_center.x - hour_hand.x, left_center.y - hour_hand.y), GPoint(left_center.x + hour_hand.x, left_center.y + hour_hand.y));
@@ -87,7 +93,7 @@ static void window_load(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
 
   s_bitmap_layer = bitmap_layer_create(bounds);
-  s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_BG_BASALT);
+  s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_BG);
   bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap);
   layer_add_child(window_layer, bitmap_layer_get_layer(s_bitmap_layer));
 
